@@ -61,6 +61,10 @@ public class ProductController {
     @GetMapping("/productbyuserid/{id}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public List<ProductModel> getAllProductsByUserId(@PathVariable Long id){
+        List<ProductModel> pm = userService.getAllProductsByUserId(id);
+        if(pm.isEmpty()){
+            return null;
+        }
         return userService.getAllProductsByUserId(id);
     }
 
