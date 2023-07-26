@@ -23,5 +23,6 @@ public class ProductModel {
         this.name = product.getName();
         this.quantity = product.getQuantity();
         this.price = product.getPrice();
+        this.userid = product.getUser().getId();
     }
 }

@@ -63,5 +63,19 @@ public class UserServiceImpl implements UserService{
         return "Product Added";
     }
 
+    @Override
+    public List<ProductModel> getAllProductsByUserId(Long id) {
+        User user = userRepository.findById(id).get();
+        List<ProductModel> productModelList = new ArrayList<>();
+        if (user!=null){
+            List<Product> list = productRepository.findAllByUser(user);
+            for (Product p :
+                    list) {
+                productModelList.add(new ProductModel(p));
+            }
+        }
+        return productModelList;
+    }
+
 
 }

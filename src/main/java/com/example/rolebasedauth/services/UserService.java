@@ -13,4 +13,6 @@ public interface UserService {
     ProductModel getProductById(Long id);
 
     String addProduct(ProductModel productModel);
+
+    List<ProductModel> getAllProductsByUserId(Long id);
 }

@@ -58,6 +58,12 @@ public class ProductController {
         return userService.addProduct(productModel);
     }
 
+    @GetMapping("/productbyuserid/{id}")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    public List<ProductModel> getAllProductsByUserId(@PathVariable Long id){
+        return userService.getAllProductsByUserId(id);
+    }
+
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
