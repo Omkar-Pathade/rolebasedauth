@@ -35,13 +35,13 @@ public class ProductController {
         return "Welcome this endpoint is not secure";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/adduser")
     public String addNewUser(@RequestBody User user) {
         return userService.addUser(user);
     }
 
-    @GetMapping("/all")
-    @Secured("ROLE_USER")
+    @GetMapping("/allproducts")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public List<ProductModel> getAllProducts(){
         return userService.getAllProducts();
     }
