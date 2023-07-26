@@ -14,13 +14,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String userName;
+    private String firstname;
+    private String lastname;
+    private String username;
     private String email;
     private String password;
     private String role;
-    @OneToMany
-    private List<Product> product;
+
 
 }

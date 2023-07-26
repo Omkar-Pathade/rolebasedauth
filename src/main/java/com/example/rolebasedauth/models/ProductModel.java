@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.example.rolebasedauth.entities.User;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public class ProductModel {
     private String name;
     private Integer quantity;
     private double price;
+    private Long userid;
 
     public ProductModel(Product product){
         this.productId = product.getId();

@@ -6,6 +6,7 @@ import com.example.rolebasedauth.models.ProductModel;
 import com.example.rolebasedauth.services.JwtService;
 import com.example.rolebasedauth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController("/products")
+@RestController
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -39,16 +41,23 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @Secured("ROLE_USER")
     public List<ProductModel> getAllProducts(){
         return userService.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @Secured("ROLE_USER")
     public ProductModel getProductById(@PathVariable Long id){
         return userService.getProductById(id);
     }
+
+    @PostMapping("/addproduct")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    public String addProduct(@RequestBody ProductModel productModel){
+        return userService.addProduct(productModel);
+    }
+
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));

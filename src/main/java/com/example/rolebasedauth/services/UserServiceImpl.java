@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -24,6 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     ProductRepository productRepository;
+
     @Override
     public String addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -49,6 +49,18 @@ public class UserServiceImpl implements UserService{
             pm = new ProductModel(prod.get());
         }
         return pm;
+    }
+
+    @Override
+    public String addProduct(ProductModel productModel) {
+        Product product = new Product();
+        User user = userRepository.findById(productModel.getUserid()).get();
+        product.setUser(user);
+        product.setName(productModel.getName());
+        product.setPrice(productModel.getPrice());
+        product.setQuantity(productModel.getQuantity());
+        productRepository.save(product);
+        return "Product Added";
     }
 
 
